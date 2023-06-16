@@ -6,13 +6,11 @@ patchedDependencies:
     path: patches/tlock-js@0.6.1.patch
 
 specifiers:
-  buffer: ^6.0.3
   tlock-js: ^0.6.1
   typescript: ^5.0.2
   vite: ^4.3.9
 
 dependencies:
-  buffer: 6.0.3
   tlock-js: 0.6.1_7rflc7wozxobsgkkk4sv6fnkki
 
 devDependencies:
