@@ -1,4 +1,6 @@
-import {testnetClient, timelockEncrypt, roundTime} from "tlock-js";
+import {testnetClient, timelockEncrypt, roundTime, roundAt, timelockDecrypt} from "tlock-js";
+import { timestamp } from './time';
+
 import {Buffer} from 'buffer';
 (globalThis as any).Buffer = Buffer
 
@@ -28,4 +30,27 @@ export async function encryptMessageForXRounds(
 			revealRound
 		};
 	});
+}
+
+
+export async function encryptMessageForXSeconds(
+	message: string,
+	numSeconds: number
+): Promise<TimedEncryption> {
+	const chainInfo = await client.chain().info();
+	const currentTimestamp = timestamp();
+	const aproximateRevealTime = currentTimestamp + numSeconds;
+	const revealRound = roundAt(aproximateRevealTime * 1000, chainInfo);
+	return timelockEncrypt(revealRound, Buffer.from(message, 'utf8'), client).then((value) => {
+		return {
+			aproximateRevealTime,
+			encrypted: value,
+			revealRound
+		};
+	});
+}
+
+export async function decryptMessage(encrypted: string, roundNumber?: number): Promise<string> {
+	// TODO round number
+	return await timelockDecrypt(encrypted, client);
 }
