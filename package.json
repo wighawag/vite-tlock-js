@@ -13,6 +13,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
     "tlock-js": "^0.6.1"
   }
 }

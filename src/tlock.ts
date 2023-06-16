@@ -1,4 +1,6 @@
-import {testnetClient, timelockEncrypt, roundTime, Buffer} from "tlock-js";
+import {testnetClient, timelockEncrypt, roundTime} from "tlock-js";
+import {Buffer} from 'buffer';
+(globalThis as any).Buffer = Buffer
 
 const client = testnetClient();
 
